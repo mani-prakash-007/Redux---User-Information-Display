@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const UserInformationDisplay = () => {
   const users = useSelector((state) => state.userInformation.users);
@@ -161,6 +162,14 @@ export const UserInformationDisplay = () => {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="flex justify-center">
+        <Link
+          to={`/users`}
+          className="font-medium p-2 border border-gray-300 h-11 rounded-xl text-gray-500 hover:bg-gray-500 hover:text-white transition-colors duration-300"
+        >
+          Go Back
+        </Link>
         </div>
       </div>
     </>
