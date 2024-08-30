@@ -1,12 +1,22 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, Link } from "react-router-dom";
+import { fetchUsers } from "../Redux/Slices/userSlice";
 
 export const UserInformationDisplay = () => {
   const users = useSelector((state) => state.userInformation.users);
   const { id } = useParams();
+  const dispatch = useDispatch();
+  //Fetch Userdata if no data is in store
+
   const selectedUserData = users.filter((data) => id == data.id);
+
+  if (id > users.length) {
+    return <div>No user found for id : {id}</div>;
+  } else if (!selectedUserData) {
+    return <div>Loading User Information...</div>;
+  }
+
   return (
     <>
       <div>
@@ -164,12 +174,12 @@ export const UserInformationDisplay = () => {
           </div>
         </div>
         <div className="flex justify-center">
-        <Link
-          to={`/users`}
-          className="font-medium p-2 border border-gray-300 h-11 rounded-xl text-gray-500 hover:bg-gray-500 hover:text-white transition-colors duration-300"
-        >
-          Go Back
-        </Link>
+          <Link
+            to={`/users`}
+            className="font-medium p-2 border border-gray-300 h-11 rounded-xl text-gray-500 hover:bg-gray-500 hover:text-white transition-colors duration-300"
+          >
+            Go Back
+          </Link>
         </div>
       </div>
     </>

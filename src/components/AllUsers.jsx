@@ -3,19 +3,22 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLoaderData } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../Redux/Slices/userSlice";
+import { fetchUsers } from "../Redux/Slices/userSlice";
 
 export const AllUsers = () => {
   //Redux Store Access
-  const users = useSelector((state) => state.userInformation.users);
-  //Loader Data
-  const userData = useLoaderData();
+  const { users, loading, error } = useSelector(
+    (state) => state.userInformation
+  );
   //Dispath
   const dispatch = useDispatch();
   //Side Effects
   useEffect(() => {
-    dispatch(setUser(userData));
-  }, [dispatch, userData]);
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error}</p>;
 
   return (
     <>
@@ -77,15 +80,15 @@ export const AllUsers = () => {
   );
 };
 
-export const userDataFetch = async () => {
-  try {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
+// export const userDataFetch = async () => {
+//   try {
+//     const response = await axios.get(
+//       "https://jsonplaceholder.typicode.com/users"
+//     );
 
-    return response.data;
-  } catch (error) {
-    alert(`Can't Fetch Data
-      Error : ${error}`);
-  }
-};
+//     return response.data;
+//   } catch (error) {
+//     alert(`Can't Fetch Data
+//       Error : ${error}`);
+//   }
+// };
