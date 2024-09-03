@@ -9,6 +9,12 @@ export const UserInformationDisplay = () => {
   const dispatch = useDispatch();
   //Fetch Userdata if no data is in store
 
+  useEffect(() => {
+    if (users.length === 0) {
+      dispatch(fetchUsers());
+    }
+  }, [dispatch]);
+
   const selectedUserData = users.filter((data) => id == data.id);
 
   if (id > users.length) {
@@ -78,59 +84,6 @@ export const UserInformationDisplay = () => {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    Address
-                  </th>
-                  <td className="px-6 py-4">
-                    <ul className="list-none">
-                      <li>
-                        {" "}
-                        <strong>Street : </strong>{" "}
-                        {selectedUserData[0].address.street}
-                      </li>
-                      <li>
-                        {" "}
-                        <strong>Suite : </strong>{" "}
-                        {selectedUserData[0].address.suite}
-                      </li>
-                      <li>
-                        <strong>City : </strong>
-                        {selectedUserData[0].address.city},
-                      </li>
-                      <li>
-                        {" "}
-                        <strong>Zip-Code : </strong>{" "}
-                        {selectedUserData[0].address.zipcode}
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    Geolocation
-                  </th>
-                  <td className="px-6 py-4">
-                    <ul className="list-none">
-                      <li>
-                        {" "}
-                        <strong>Lattitude : </strong>{" "}
-                        {selectedUserData[0].address.geo.lat}
-                      </li>
-                      <li>
-                        {" "}
-                        <strong>Longitude : </strong>{" "}
-                        {selectedUserData[0].address.geo.lng}
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
                     Phone
                   </th>
                   <td className="px-6 py-4">{selectedUserData[0].phone}</td>
@@ -143,31 +96,6 @@ export const UserInformationDisplay = () => {
                     Website
                   </th>
                   <td className="px-6 py-4">{selectedUserData[0].website}</td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    Company
-                  </th>
-                  <td className="px-6 py-4">
-                    <ul className="list-none">
-                      <li>
-                        {" "}
-                        <strong>Name : </strong>{" "}
-                        {selectedUserData[0].company.name}
-                      </li>
-                      <li>
-                        <strong>Catch Phrase : </strong>
-                        {selectedUserData[0].company.catchPhrase},
-                      </li>
-                      <li>
-                        {" "}
-                        <strong>Bs : </strong> {selectedUserData[0].company.bs}
-                      </li>
-                    </ul>
-                  </td>
                 </tr>
               </tbody>
             </table>

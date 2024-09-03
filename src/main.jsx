@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { AllUsers } from "./components/allUsers";
@@ -11,15 +10,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./Redux/Store/store";
+import { store } from "./Redux/Store/store";
+import { AddUser } from "./components/addUser";
 
 //
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<AllUsers />} />
       <Route path="/users" element={<AllUsers />} />
       <Route path="/users/:id" element={<UserInformationDisplay />} />
+      <Route path="/users/addUser" element={<AddUser />} />
       <Route path="*" element={<ErrorPage />} />
     </>
   )
