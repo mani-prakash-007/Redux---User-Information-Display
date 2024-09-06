@@ -26,14 +26,13 @@ export const AllUsers = () => {
     setAllUsersList(users);
   }, [dispatch, users]);
 
-  console.log("User States", usersList);
-  console.log("All Users State", allUsersList);
   //Search functionality
   const search = (e) => {
     console.log(e.target.value);
-    const data = usersList.filter((data) =>
-      data.name.startsWith(e.target.value)
+    const data = allUsersList.filter((data) =>
+      data.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
+    console.log("Before If Condition : ", data);
     if (e.target.value.length === 0) {
       setUsersList(allUsersList);
     } else if (data.length > 0) {
@@ -64,7 +63,7 @@ export const AllUsers = () => {
             <input
               onChange={search}
               type="text"
-              className="border rounded-lg px-5 w-40"
+              className="border rounded-lg px-5 w-40 focus:outline-none"
               placeholder="Search for user"
             />
           </div>
@@ -89,7 +88,11 @@ export const AllUsers = () => {
               <tbody>
                 {usersList === "No Users Found" ? (
                   <>
-                    <p className="my-5">No users Found</p>
+                    <tr className="my-5">
+                      <th scope="col" className="px-6 py-3">
+                        No users Found
+                      </th>
+                    </tr>
                   </>
                 ) : (
                   usersList?.map((userData, index) => {
