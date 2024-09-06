@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../Redux/Slices/userSlice";
 import { FaUserPlus } from "react-icons/fa6";
+import { IoRefreshSharp } from "react-icons/io5";
 
 export const AllUsers = () => {
   //State
@@ -26,6 +27,12 @@ export const AllUsers = () => {
     setAllUsersList(users);
   }, [dispatch, users]);
 
+  //Referesh
+  const refreshData = () => {
+    dispatch(fetchUsers());
+    setAllUsersList(users);
+    setUsersList(users);
+  };
   //Search functionality
   const search = (e) => {
     console.log(e.target.value);
@@ -53,19 +60,28 @@ export const AllUsers = () => {
           All User Information
         </h1>
         <div className="flex flex-col justify-center items-center my-10">
-          <div className="flex justify-end flex-wrap relative overflow-x-auto sm:rounded-lg w-1/3 my-5">
-            <NavLink
-              to={"/users/adduser"}
-              className="border border-gray-300 px-5 py-2 mr-5  rounded-lg text-red-600 hover:text-white hover:bg-red-600 active:scale-90"
+          <div className=" flex justify-end flex-wrap relative overflow-x-auto sm:rounded-lg w-1/3 my-5">
+            <button
+              onClick={refreshData}
+              className="border px-2 text-xl rounded-lg hover:bg-black hover:text-white font-bold active:scale-90"
             >
-              <FaUserPlus />
-            </NavLink>
-            <input
-              onChange={search}
-              type="text"
-              className="border rounded-lg px-5 w-40 focus:outline-none"
-              placeholder="Search for user"
-            />
+              {" "}
+              <IoRefreshSharp />{" "}
+            </button>
+            <>
+              <NavLink
+                to={"/users/adduser"}
+                className="border border-gray-300 px-5 py-2 mx-5  rounded-lg text-red-600 hover:text-white hover:bg-red-600 active:scale-90"
+              >
+                <FaUserPlus />
+              </NavLink>
+              <input
+                onChange={search}
+                type="text"
+                className="border rounded-lg px-5 w-40 focus:outline-none"
+                placeholder="Search for user"
+              />
+            </>
           </div>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/3 border border-gray-300">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
